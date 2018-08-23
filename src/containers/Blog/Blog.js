@@ -41,8 +41,9 @@ class Blog extends Component {
                 <Switch> {/* Switch loads the first link that matches check*/}
                     <Route path="/post" component={Posts} />
                     {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
-                    <Redirect from='/' to='/post'/>
-                    {/* <Route path="/post/:id" component={FullPost} /> */}
+                    <Route render={()=><h1>404 NOT FOUND - This is a catch all</h1>} />
+                    {/* <Redirect from='/' to='/post'/>
+                    <Route path="/post/:id" component={FullPost} /> */}
                 </Switch>
 
 
