@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import Post from '../../../components/Post/Post';
+import axios from '../../../axios';
+import './Posts.css';
+//import {Link} from 'react-router-dom';
 
 class Posts extends Component{
     state = {
         posts:[],
         users:[],
-        selectedPostId: null,
-        error: false,
+        //selectedPostId: null,
+        //error: false,
     }
 
     componentDidMount(){
+
+        //console.log(this.props);
+
         axios.get('/posts')
            .then(response => {
-               const posts = response.data.slice(0,4);
+               const posts = response.data.slice(0,6);
                const updatePosts = posts.map(post =>{
                    return {
                        ...post
@@ -52,7 +58,10 @@ class Posts extends Component{
    }
 
    postSelectHandler=(id)=>{
-    this.setState({selectedPostId: id});
+        //this.setState({selectedPostId: id});
+        
+        //Navigating Programmically
+        this.props.history.push({pathname: '/post/'+id});
     }
 
 
@@ -62,11 +71,16 @@ class Posts extends Component{
         let posts = <p style={{textAlign: 'center'}}>Something went wrong!!!</p>
         if(!this.state.error){
             posts = this.state.posts.map(post =>{
-                return <Post 
-                    key={post.id} 
-                    title={post.title} 
-                    author={this.getAuthorName(post.userId)}
-                    clicked={()=>this.postSelectHandler(post.id)}/>
+                return (
+                
+                        //<Link key={post.id} to={'/post/'+post.id} >
+                            <Post 
+                                key={post.id}
+                                title={post.title} 
+                                author={this.getAuthorName(post.userId)}
+                                clicked={()=>this.postSelectHandler(post.id)}/>
+                        //</Link>
+                    );
                 }
             );
         }
