@@ -9,6 +9,10 @@ import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
 
+    state = {
+        auth: false,
+    }
+
     render () {
 
 
@@ -36,7 +40,7 @@ class Blog extends Component {
                 <Route path="/" exact render={() => <h1>Home</h1>}/>
                 <Switch> {/* Switch loads the first link that matches check*/}
                     <Route path="/post" component={Posts} />
-                    <Route path="/new-post" component={NewPost} />
+                    {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
                     <Redirect from='/' to='/post'/>
                     {/* <Route path="/post/:id" component={FullPost} /> */}
                 </Switch>
