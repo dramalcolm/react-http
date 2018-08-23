@@ -22,7 +22,8 @@ class NewPost extends Component {
         axios.post('https://jsonplaceholder.typicode.com/posts',data)
             .then(response => {
                 console.log(response);
-                this.setState({redirect:true});
+                this.props.history.push('/post'); //Adds to stack
+                //this.setState({redirect:true}); //Place the stack
             });
     }
 
