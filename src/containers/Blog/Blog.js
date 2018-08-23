@@ -12,10 +12,11 @@ class Blog extends Component {
         posts:[],
         users:[],
         selectedPostId: null,
+        error: false,
     }
 
     componentDidMount(){
-         axios.get('https://jsonplaceholder.typicode.com/posts')
+         axios.get('/posts')
             .then(response => {
                 const posts = response.data.slice(0,4);
                 const updatePosts = posts.map(post =>{
@@ -24,9 +25,11 @@ class Blog extends Component {
                     }
                 })
                 this.setState({posts:updatePosts})
-                //console.log(response);
+            })
+            .catch(error => {
+                this.setState({error: true});
             }); 
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('/users')
             .then(response => {
                 const authors = response.data.map(author =>{
                     return {
@@ -35,6 +38,9 @@ class Blog extends Component {
                 })
 
                 this.setState({users: authors});
+            })
+            .catch(error => {
+                this.setState({error: true});
             });       
     }
 
@@ -57,15 +63,18 @@ class Blog extends Component {
 
     render () {
 
-        const posts = this.state.posts.map(post =>{
-            return <Post 
-                key={post.id} 
-                title={post.title} 
-                author={this.getAuthorName(post.userId)}
-                clicked={()=>this.postSelectHandler(post.id)}/>
-            }
-        );
-
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!!!</p>
+        if(!this.state.error){
+            posts = this.state.posts.map(post =>{
+                return <Post 
+                    key={post.id} 
+                    title={post.title} 
+                    author={this.getAuthorName(post.userId)}
+                    clicked={()=>this.postSelectHandler(post.id)}/>
+                }
+            );
+        }
+        
         return (
             <div>
                 <section className="Posts">
