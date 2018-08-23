@@ -33,12 +33,11 @@ class Blog extends Component {
                 {/*<Route path="/" exact render={() => <Posts/>} />
                 <Route path="/new-post" exact render={() => <Posts/>} />*/}
 
-
+                <Route path="/" exact render={() => <h1>Home</h1>}/>
                 <Switch> {/* Switch loads the first link that matches check*/}
-                    <Route path="/" exact render={() => <h1>Home</h1>}/>
-                    <Route path="/post" exact component={Posts} />
+                    <Route path="/post" component={Posts} />
                     <Route path="/new-post" component={NewPost} />
-                    <Route path="/post/:id" component={FullPost} />
+                    {/* <Route path="/post/:id" component={FullPost} /> */}
                 </Switch>
 
 

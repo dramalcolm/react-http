@@ -3,6 +3,8 @@ import Post from '../../../components/Post/Post';
 import axios from '../../../axios';
 import './Posts.css';
 //import {Link} from 'react-router-dom';
+import FullPost from '../FullPost/FullPost';
+import {Route} from 'react-router-dom'
 
 class Posts extends Component{
     state = {
@@ -87,9 +89,13 @@ class Posts extends Component{
 
 
         return (
-        <section className="Posts">
-            {posts}
-        </section>
+        <div>   
+            <section className="Posts">
+                {posts}
+            </section>
+            <hr/>
+            <Route path={this.props.match.url+'/:id'} component={FullPost} />
+        </div>
         );
     }
 }
